@@ -1,6 +1,6 @@
 'use client'
 
-import { theme } from "@/styles/theme";
+import { darkTheme, lightTheme } from "@/styles/theme";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "@/styles/globalStyles";
 
@@ -10,10 +10,9 @@ type WrapperProps = {
 
 export function WrapperThemeProvider({ children }: WrapperProps) {
     return(
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={lightTheme}>
             <GlobalStyle />
             {children}
         </ThemeProvider>
     )
-        
 }
