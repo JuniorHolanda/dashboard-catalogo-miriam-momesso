@@ -1,12 +1,16 @@
 import {
   Saside,
+  Sbutton,
   ScontainerData,
+  ScontainerInfo,
+  ScontainerInput,
   Sform,
   SheroSection,
+  Slabel,
 } from "./HeroSection.styles";
-import dataCategory from '@/data/category.json'
 import Select from "../Select";
 import Input from "../Input";
+import FormGallery from "../FormGallery";
 
 export default function HeroSection() {
   return (
@@ -16,14 +20,14 @@ export default function HeroSection() {
       </Saside>
       <Sform>
         <ScontainerData>
-          <div>
+          <ScontainerInfo>
             <h1>Informações</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint
-              fuga magnam rem quia! Delectus.
+              Preencha o formulário com as informações do produto
             </p>
-          </div>
-          <div>
+          </ScontainerInfo>
+          <ScontainerInput>
+            <Select type="costuraveis" />
             <Input
               label="Nome do Produto"
               name="nome-do-produto"
@@ -31,33 +35,35 @@ export default function HeroSection() {
               placeholder="Digite o nome do produto"
             />
 
-            <Select type="costuraveis" />
-
-
-
-
             <Input
               label="Medidas"
               name="medidas-do-produto"
               type="text"
               placeholder="Digite as medidas do produto"
             />
-            <Input
-              label="Descrição curta"
-              name="medidas-do-produto"
-              type="text"
-              placeholder="Descrição para o card"
-            />
-            <Input
-              label="Descrição Longa"
-              name="medidas-do-produto"
-              type="text"
-              placeholder="Descrição completa do produto"
-            />
-          </div>
+
+            <Slabel>
+              <span>Descricao Curta</span>
+              <textarea
+                name="descricao-card-produto"
+                placeholder="Descrição para o card"
+              />
+            </Slabel>
+
+            <Slabel>
+              <span>Descricao Longa</span>
+              <textarea
+                name="descricao-completa-produto"
+                placeholder="Descrição completa"
+              />
+            </Slabel>
+          </ScontainerInput>
         </ScontainerData>
-        <div></div>
-        <button>CONFIRMAR</button>
+
+        <FormGallery />
+        <Sbutton>
+          <button>Confirmar</button>
+        </Sbutton>
       </Sform>
     </SheroSection>
   );

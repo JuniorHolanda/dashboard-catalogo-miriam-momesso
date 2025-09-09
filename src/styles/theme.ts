@@ -3,6 +3,10 @@ const baseTheme = {
     body: "'Roboto', sans-serif",
     heading: "'Montserrat', sans-serif",
   },
+  size: {
+    small: ''
+  },
+
   spacing: {
     small: "8px",
     medium: "16px",
@@ -14,9 +18,14 @@ export const lightTheme = {
   ...baseTheme,
   colors: {
     primary: "#3498db",
-    secondary: "#2ecc71",
-    background: "#496ccf",
-    text: "#333333",
+    secondary: "#0b488dff",
+    third: "#2ecc71",
+    background1: "#e1e5ecff",
+    background2: "#ffffffff",
+    background3: "#141414ff",
+    text1: "#333333",
+    text2: "#ffffffff",
+
   },
 };
 

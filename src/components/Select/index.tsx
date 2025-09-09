@@ -3,6 +3,8 @@ import dataCategory from "@/data/category.json";
 import Input from "../Input";
 import { useState } from "react";
 import { BiArrowToBottom, BiArrowToTop } from "react-icons/bi";
+import { DiDart } from "react-icons/di";
+import { SSelect } from "./Select.styles";
 
 type SelectProps = {
   type: string;
@@ -24,55 +26,35 @@ export default function Select(props: SelectProps) {
   const [open, setOpen] = useState<Boolean>(false);
   const [selected, setSelected] = useState<string>("Escolha uma categoria");
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelected(e.target.value);
+  }
+
   return (
-    <div>
-      <div onClick={() => setOpen(!open)}>
+    <SSelect>
+      <span onClick={() => setOpen(!open)}>
         <span>{selected}</span>
         {open ? <BiArrowToTop /> : <BiArrowToBottom />}
-      </div>
+      </span>
 
       {open && (
-        <div>
+        <ul>
           {dataCategory.map((cat: DataCategoryProps) => (
-            <Input
+            <li>
+              <Input
               key={`${cat.id}`}
               label={cat.category}
+              value={cat.category}
               type="radio"
               name="category"
               placeholder="Selecione uma categoria"
-              value={cat.category}
-            //   onChange={handleChange}
+              onChange={handleChange}
+              $isSelect={true}
             />
+            </li>
           ))}
-        </div>
+        </ul>
       )}
-    </div>
+    </SSelect>
   );
 }
-
-/*
-
-
-            <div>
-              <div onClick={() => setOpen(!open)}>
-                <span>{selected}</span>
-                {open ? <BiArrowToTop /> : <BiArrowToBottom />}
-              </div>
-
-              {open && (
-                <div>
-                  {category.map((cat, index) => (
-                    <Input
-                      key={`${cat.value}-${index}`}
-                      label={cat.value}
-                      type="radio"
-                      name="category"
-                      placeholder="Selecione uma categoria"
-                      value={cat.value}
-                      onChange={handleChange}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-            */
