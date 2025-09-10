@@ -2,6 +2,7 @@
 import { useState } from "react";
 import {
   ScardImg,
+  ScontainerCards,
   ScontainerImg,
   SformGallery,
   Sheader,
@@ -10,12 +11,26 @@ import {
 } from "./FormGallery.styles";
 import { FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { it } from "node:test";
 
-export default function FormGallery() {
-  const [files, setFile] = useState<File[]>([]);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [altText, setAltText] = useState<string>("");
+ type GalleryItem = {
+    file: File;
+    preview: string;
+    altText: string;
+  };
+
+
+
+
+export default function FormGallery({ onChange }: { onChange: (items: GalleryItem[]) => void } ) {
+
+  const [gallery, setGallery] = useState<GalleryItem[]>([]);
+
+  const handleAltChange = (index: number, value: string) => {
+    const updated = gallery.map((item, i) =>  i === index ? { ...item, altText: value } : item);
+
+    setGallery(updated);
+    onChange(updated);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
@@ -31,36 +46,46 @@ export default function FormGallery() {
       return;
     }
 
-    setFile([...files, selected]);
-    console.log(files);
-    setPreview(URL.createObjectURL(selected));
+    const newItem: GalleryItem = {
+      file: selected,
+      preview: URL.createObjectURL(selected),
+      altText: ""
+    };
+
+    const updated = [...gallery, newItem];
+    setGallery(updated);
+    onChange(updated);
+
+    e.target.value = "";
   };
 
   return (
     <SformGallery>
-      {preview && files.map((img, index) => (
-        <ScardImg>
-          <Sheader>
-            <button>Capa</button>
-            <button>
-              <IoClose />
-            </button>
-          </Sheader>
-          <Sinfo>
-            <span>Texto Alternativo</span>
-            <textarea
-              name="texAlt"
-              placeholder="descreva a imagem"
-              maxLength={100}
-              value={altText}
-              onChange={(e) => setAltText(e.target.value)}
-            ></textarea>
-          </Sinfo>
-          <ScontainerImg>
-            <img src={files[0]} alt={altText} />
-          </ScontainerImg>
-        </ScardImg>
-      ))}
+      <ScontainerCards>
+        {gallery.map((img, index) => (
+          <ScardImg key={index}>
+            <Sheader>
+              <button>Capa</button>
+              <button>
+                <IoClose />
+              </button>
+            </Sheader>
+            <Sinfo>
+              <span>Texto Alternativo</span>
+              <textarea
+                name="texAlt"
+                placeholder="descreva a imagem"
+                maxLength={100}
+                value={img.altText}
+                onChange={(e) => handleAltChange(index, e.target.value)}
+              ></textarea>
+            </Sinfo>
+            <ScontainerImg>
+              <img src={img.preview} alt={img.altText} />
+            </ScontainerImg>
+          </ScardImg>
+        ))}
+      </ScontainerCards>
 
       <Sinput>
         <FaPlus />
