@@ -10,10 +10,12 @@ import {
 } from "./FormGallery.styles";
 import { FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { it } from "node:test";
 
 export default function FormGallery() {
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFile] = useState<File[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
+  const [altText, setAltText] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
@@ -29,13 +31,14 @@ export default function FormGallery() {
       return;
     }
 
-    setFile(selected);
+    setFile([...files, selected]);
+    console.log(files);
     setPreview(URL.createObjectURL(selected));
   };
 
   return (
     <SformGallery>
-      {preview && (
+      {preview && files.map((img, index) => (
         <ScardImg>
           <Sheader>
             <button>Capa</button>
@@ -49,13 +52,16 @@ export default function FormGallery() {
               name="texAlt"
               placeholder="descreva a imagem"
               maxLength={100}
+              value={altText}
+              onChange={(e) => setAltText(e.target.value)}
             ></textarea>
           </Sinfo>
           <ScontainerImg>
-            <img src={preview} alt="" />
+            <img src={files[0]} alt={altText} />
           </ScontainerImg>
         </ScardImg>
-      )}
+      ))}
+
       <Sinput>
         <FaPlus />
         <input type="file" accept=".png, .jpg, .jpeg" onChange={handleChange} />
