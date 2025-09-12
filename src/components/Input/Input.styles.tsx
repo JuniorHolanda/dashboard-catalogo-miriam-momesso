@@ -2,16 +2,12 @@
 
 import styled from "styled-components";
 
-type SelectProps = {
-  isSelect?: boolean;
-};
 
-export const Sfield = styled.label<SelectProps>`
+export const Slabel = styled.label`
   top: calc(100% + 10px);
   left: 0;
-  position: ${({isSelect}) => (isSelect ? "relative" : "static")};
+  position: relative;
   display: flex;
-  flex-direction: ${({ isSelect }) => (isSelect ? "row" : "column")};
   justify-content: space-between;
   align-items: flex-start;
   font-weight: 800;
@@ -26,11 +22,11 @@ export const Sfield = styled.label<SelectProps>`
   
 
   input {
-    position: ${({isSelect}) => (isSelect ? "absolute" : "static")};
+    position: absolute;
     appearance: none; /* Remove estilo nativo */
     -webkit-appearance: none; /* Necessário para Safari */
     -moz-appearance: none;
-    opacity: ${({ isSelect }) => (isSelect ? "0" : "1")};
+    opacity: 0;
     display: flex;
     justify-content: flex-start;
     align-items: center;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sfield } from './Input.styles'
+import { Slabel } from './Input.styles'
 
 type InputProps = {
   type: string,
@@ -14,7 +14,7 @@ type InputProps = {
 export default function Input( {label, $isSelect, ...props} : InputProps) {
   return (
     <>
-    <Sfield isSelect={$isSelect}>
+    <Slabel>
         <span>{label}</span>
         <input
           type={props.type}
@@ -23,7 +23,7 @@ export default function Input( {label, $isSelect, ...props} : InputProps) {
           value={props.value}
           onChange={props.onChange}
         />
-    </Sfield>
+    </Slabel>
     </>
   )
 }

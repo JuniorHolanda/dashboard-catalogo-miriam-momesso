@@ -49,6 +49,7 @@ export const Slabel = styled.label`
     width: 100%;
     height: 100%;
     font-weight: 800;
+    border: solid red;
 
     span{
         padding-left: 10px;

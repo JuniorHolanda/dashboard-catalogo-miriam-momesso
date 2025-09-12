@@ -74,11 +74,14 @@ export default function Form() {
       };
 
       // 4. Envia para API de produtos
-      const res = await fetch("https://back-end-catalogo-miriam-momesso.onrender.com/product", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(produto),
-      });
+      const res = await fetch(
+        "https://back-end-catalogo-miriam-momesso.onrender.com/product",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(produto),
+        }
+      );
 
       if (!res.ok) throw new Error("Erro ao salvar produto");
       console.log("Produto salvo!");
@@ -95,8 +98,10 @@ export default function Form() {
           <p>Preencha o formulário com as informações do produto</p>
         </ScontainerInfo>
         <ScontainerInput>
-          <Select type="costuraveis"
-          onChangeCategory={(value) => setCategory([value])}/>
+          <Select
+            type="costuraveis"
+            onChangeCategory={(value) => setCategory([value])}
+          />
           <label>
             Nome do produto
             <input
@@ -115,7 +120,12 @@ export default function Form() {
               placeholder="Digite as medidas do produto"
               value={currentMeasure}
               onChange={(e) => setCurrentMeasure(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addMeasure()}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addMeasure();
+                }
+              }}
             />
           </label>
 
